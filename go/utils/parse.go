@@ -81,3 +81,7 @@ func ParseCommand(line string) Command {
 	}
 	return c
 }
+
+func FirstAsciiNr(s string) int {
+	return int([]rune(s)[0])
+}

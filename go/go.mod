@@ -3,6 +3,7 @@ module github.com/einarssons/adventofcode2022/go
 go 1.19
 
 require (
+	github.com/chrispappas/golang-generics-set v1.0.1
 	github.com/oriser/regroup v0.0.0-20210730155327-fca8d7531263
 	github.com/stretchr/testify v1.8.1
 )
