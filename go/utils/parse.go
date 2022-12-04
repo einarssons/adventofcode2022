@@ -1,9 +1,11 @@
 package utils
 
 import (
+	"fmt"
 	"log"
 	"regexp"
 	"strconv"
+	"strings"
 
 	"github.com/oriser/regroup"
 )
@@ -82,6 +84,31 @@ func ParseCommand(line string) Command {
 	return c
 }
 
+// FirstAsciiNr return ascii number of first character in string.
+// Panics if value > 127.
 func FirstAsciiNr(s string) int {
-	return int([]rune(s)[0])
+	runeValue := int([]rune(s)[0])
+	if runeValue > 127 {
+		panic(fmt.Sprintf("rune value %d is not ascii", runeValue))
+	}
+	return runeValue
+}
+
+// Atoi is panicing version of strconv.Atoi. Panics instead of error.
+func Atoi(s string) int {
+	nr, err := strconv.Atoi(s)
+	if err != nil {
+		panic(fmt.Sprintf("cannot convert %s to int", s))
+	}
+	return nr
+}
+
+// Cut is panicing version of strings.Cut. Panics instead of error.
+func Cut(s string, separator string) (left, right string) {
+	var ok bool
+	left, right, ok = strings.Cut(s, separator)
+	if !ok {
+		panic(fmt.Sprintf("cannot cut %q with %q", s, separator))
+	}
+	return left, right
 }

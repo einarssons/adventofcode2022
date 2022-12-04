@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"strconv"
 	"strings"
 
 	u "github.com/einarssons/adventofcode2022/go/utils"
@@ -53,19 +52,8 @@ func parseLine(line string) (p1, p2 pair) {
 }
 
 func parseRange(str string) pair {
-	start, end, ok := strings.Cut(str, "-")
-	if !ok {
-		panic("bad line")
-	}
-	s, err := strconv.Atoi(start)
-	if err != nil {
-		log.Fatal(err)
-	}
-	e, err := strconv.Atoi(end)
-	if err != nil {
-		log.Fatal(err)
-	}
-	return pair{s, e}
+	start, end := u.Cut(str, "-")
+	return pair{u.Atoi(start), u.Atoi(end)}
 }
 
 func contains(p1, p2 pair) bool {
