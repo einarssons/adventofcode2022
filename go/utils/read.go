@@ -52,3 +52,13 @@ func ReadLinesFromFile(path string) []string {
 	}
 	return lines
 }
+
+// ReadRawLinesFromFile reads lines from a file.
+func ReadRawLinesFromFile(path string) []string {
+	raw, err := os.ReadFile(path)
+	if err != nil {
+		log.Fatal(err)
+	}
+	rawStr := string(raw)
+	return strings.Split(rawStr, "\n")
+}

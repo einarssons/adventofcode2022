@@ -30,6 +30,13 @@ func (s *StackStrings) Depth() int {
 	return s.nr
 }
 
+func (s *StackStrings) Reverse() {
+	for i := 0; i < s.nr/2; i++ {
+		j := s.nr - 1 - i
+		s.elems[i], s.elems[j] = s.elems[j], s.elems[i]
+	}
+}
+
 // Stack of ints
 type StackInts struct {
 	elems []int
