@@ -85,7 +85,7 @@ func TestReverseStrings(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		ReverseStrings(tc.in)
+		ReverseSlice(tc.in)
 		require.Equal(t, tc.expected, tc.in)
 	}
 
