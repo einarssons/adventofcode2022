@@ -35,7 +35,7 @@ func ParseMove(line string) Move {
 func task1(lines []string) string {
 	l := len(lines[0]) + 1
 	nrStacks := l / 4
-	stacks := make([]u.StackStrings, nrStacks)
+	stacks := make([]u.Stack[string], nrStacks)
 	state := "cargo"
 	for _, line := range lines {
 		switch state {
@@ -74,7 +74,7 @@ func task1(lines []string) string {
 func task2(lines []string) string {
 	l := len(lines[0]) + 1
 	nrStacks := l / 4
-	stacks := make([]u.StackStrings, nrStacks)
+	stacks := make([]u.Stack[string], nrStacks)
 	state := "cargo"
 	for _, line := range lines {
 		switch state {
@@ -95,7 +95,7 @@ func task2(lines []string) string {
 		case "moves":
 			// Move multiple cargos. Similuate using intermediate stack.
 			m := ParseMove(line)
-			localStack := u.StackStrings{}
+			localStack := u.Stack[string]{}
 			for i := 0; i < m.Nr; i++ {
 				item, _ := stacks[m.From-1].Pop()
 				localStack.Push(item)
@@ -117,7 +117,7 @@ func task2(lines []string) string {
 
 // parseStacks splits a line into parts and look for [X] cargo.
 // The cargo is added to stacks depending on index.
-func parseStacks(line string, stacks []u.StackStrings) bool {
+func parseStacks(line string, stacks []u.Stack[string]) bool {
 	nrStacks := len(stacks)
 	for i := 0; i < nrStacks; i++ {
 		end := 4 * (i + 1)

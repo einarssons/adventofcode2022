@@ -1,20 +1,20 @@
 package utils
 
-// Stack of strings
-type StackStrings struct {
-	elems []string
+// Stack
+type Stack[T any] struct {
+	elems []T
 	nr    int
 }
 
-func (s *StackStrings) Push(elem string) {
+func (s *Stack[T]) Push(elem T) {
 	s.elems = append(s.elems, elem)
 	s.nr++
 }
 
 // Pop - get element if available as signaled by ok
-func (s *StackStrings) Pop() (elem string, ok bool) {
+func (s *Stack[K]) Pop() (elem K, ok bool) {
 	if s.nr == 0 {
-		return "", false
+		return elem, false
 	}
 	elem = s.elems[s.nr-1]
 	s.nr--
@@ -22,47 +22,17 @@ func (s *StackStrings) Pop() (elem string, ok bool) {
 	return elem, true
 }
 
-func (s *StackStrings) IsEmpty() bool {
+func (s *Stack[K]) IsEmpty() bool {
 	return s.nr == 0
 }
 
-func (s *StackStrings) Depth() int {
+func (s *Stack[K]) Depth() int {
 	return s.nr
 }
 
-func (s *StackStrings) Reverse() {
+func (s *Stack[K]) Reverse() {
 	for i := 0; i < s.nr/2; i++ {
 		j := s.nr - 1 - i
 		s.elems[i], s.elems[j] = s.elems[j], s.elems[i]
 	}
-}
-
-// Stack of ints
-type StackInts struct {
-	elems []int
-	nr    int
-}
-
-func (s *StackInts) Push(elem int) {
-	s.elems = append(s.elems, elem)
-	s.nr++
-}
-
-// Pop - get element if available as signaled by ok
-func (s *StackInts) Pop() (elem int, ok bool) {
-	if s.nr == 0 {
-		return 0, false
-	}
-	elem = s.elems[s.nr-1]
-	s.nr--
-	s.elems = s.elems[:s.nr]
-	return elem, true
-}
-
-func (s *StackInts) IsEmpty() bool {
-	return s.nr == 0
-}
-
-func (s *StackInts) Depth() int {
-	return s.nr
 }
