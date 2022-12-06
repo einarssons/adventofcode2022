@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/chrispappas/golang-generics-set/set"
 	u "github.com/einarssons/adventofcode2022/go/utils"
 )
 
@@ -13,13 +14,9 @@ func main() {
 }
 
 func findPos(line string, nrDiffChars int) int {
-	for i := nrDiffChars; i < len(line); i++ {
-		s := u.CreateSet[string]()
-		for j := i - (nrDiffChars - 1); j <= i; j++ {
-			s.Add(string(line[j]))
-		}
-		if s.Size() == nrDiffChars {
-			fmt.Println(s.Values())
+	for i := nrDiffChars - 1; i < len(line); i++ {
+		s := set.FromSlice(u.SplitToChars(line[i-nrDiffChars+1 : i+1]))
+		if s.Len() == nrDiffChars {
 			return i + 1
 		}
 	}
