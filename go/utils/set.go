@@ -38,6 +38,15 @@ func (s Set[K]) Extend(other Set[K]) {
 	}
 }
 
+// Values returns values in Set
+func (s Set[K]) Values() []K {
+	v := make([]K, 0, len(s))
+	for k := range s {
+		v = append(v, k)
+	}
+	return v
+}
+
 // Subtract - remove all elements from s that are in other
 func (s Set[K]) Subtract(other Set[K]) {
 	for k := range other {
