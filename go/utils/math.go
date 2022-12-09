@@ -47,6 +47,13 @@ func Abs(a int) int {
 	return a
 }
 
+func Sign(a int) int {
+	if a < 0 {
+		return -1
+	}
+	return 1
+}
+
 func Triangle(nr int) int {
 	return nr * (nr + 1) / 2
 }
