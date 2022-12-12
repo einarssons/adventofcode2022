@@ -69,7 +69,7 @@ func (s *screen) draw(x, cycle int) {
 	if pos-1 <= col && col <= pos+1 {
 		s.pixels[pixel] = "#"
 	} else {
-		s.pixels[pixel] = "."
+		s.pixels[pixel] = " "
 	}
 }
 
