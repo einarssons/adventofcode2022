@@ -54,6 +54,17 @@ func Sign(a int) int {
 	return 1
 }
 
+func Cmp(a, b int) int {
+	switch {
+	case a > b:
+		return 1
+	case a < b:
+		return -1
+	default:
+		return 0
+	}
+}
+
 func Triangle(nr int) int {
 	return nr * (nr + 1) / 2
 }
