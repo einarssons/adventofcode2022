@@ -16,5 +16,5 @@ func TestTask1(t *testing.T) {
 func TestTask2(t *testing.T) {
 	lines := u.ReadLinesFromFile("test.txt")
 	result := task2(lines)
-	require.Equal(t, 0, result)
+	require.Equal(t, 93, result)
 }

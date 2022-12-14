@@ -30,13 +30,23 @@ func task1(lines []string) int {
 }
 
 func task2(lines []string) int {
-	return 0
+	cave := newCave()
+	parseLines(lines, cave)
+	nrSand := 0
+	for {
+		full := cave.dropSandWithBottom()
+		if full {
+			break
+		}
+		nrSand++
+	}
+	return nrSand + 1
 }
 
 type cave struct {
 	rocks  set.Set[string]
 	sand   set.Set[string]
-	bottom int // lowest point
+	lowest int // lowest point
 }
 
 type pos struct {
@@ -57,7 +67,7 @@ func newCave() *cave {
 	c := cave{}
 	c.rocks = set.FromSlice([]string{})
 	c.sand = set.FromSlice([]string{})
-	c.bottom = 0
+	c.lowest = 0
 	return &c
 }
 
@@ -68,13 +78,13 @@ func (c *cave) filled(p pos) bool {
 
 func (c *cave) addRock(p pos) {
 	c.rocks.Add(p.String())
-	if p.y > c.bottom {
-		c.bottom = p.y
+	if p.y > c.lowest {
+		c.lowest = p.y
 	}
 }
 
 func (c *cave) addSand(p pos) {
-	c.rocks.Add(p.String())
+	c.sand.Add(p.String())
 }
 
 // dropSand returns true if beyond edge
@@ -82,7 +92,7 @@ func (c *cave) dropSand() bool {
 	p := pos{500, 0}
 	for {
 		tryP := p
-		if p.y > c.bottom {
+		if p.y == c.lowest+1 {
 			return true
 		}
 		p.y++ // down
@@ -100,6 +110,32 @@ func (c *cave) dropSand() bool {
 		// cannot move
 		c.addSand(tryP)
 		return false
+	}
+}
+
+func (c *cave) dropSandWithBottom() bool {
+	p := pos{500, 0}
+	for {
+		tryP := p
+		if p.y == c.lowest+1 { // On bottom
+			c.addSand(p)
+			return false
+		}
+		p.y++ // down
+		if !c.filled(p) {
+			continue
+		}
+		p.x-- // left
+		if !c.filled(p) {
+			continue
+		}
+		p.x += 2 // right
+		if !c.filled(p) {
+			continue
+		}
+		// cannot move
+		c.addSand(tryP)
+		return tryP == pos{500, 0}
 	}
 }
 
