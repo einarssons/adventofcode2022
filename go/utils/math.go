@@ -1,5 +1,9 @@
 package utils
 
+const (
+	MaxInt = 9223372036854775807
+)
+
 func MinMax(a, b int) (int, int) {
 	if a < b {
 		return a, b
