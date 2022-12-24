@@ -53,6 +53,14 @@ func ReadLinesFromFile(path string) []string {
 	return lines
 }
 
+// TrimTrailingNewline removes trailing newline
+func TrimTrailingNewline(lines []string) []string {
+	if lines[len(lines)-1] == "" {
+		return lines[:len(lines)-1]
+	}
+	return lines
+}
+
 // ReadRawLinesFromFile reads lines from a file.
 func ReadRawLinesFromFile(path string) []string {
 	raw, err := os.ReadFile(path)
